@@ -146,7 +146,8 @@ static int alloc_iv_ring(struct adapter *adapt)
 						PAGE_SIZE,
 						PCI_DMA_BIDIRECTIONAL);
 #else
-	ih->ivr_ma.quad_part = dma_map_page(adapt->pf.pci_dev->dev,
+	ih->ivr_ma.quad_part = dma_map_page(
+						(struct device *)adapt->pf.pci_dev->dev,
 						(struct page *)list[0], 0,
 						PAGE_SIZE,
 						DMA_BIDIRECTIONAL);
@@ -164,7 +165,8 @@ static int alloc_iv_ring(struct adapter *adapt)
 							PAGE_SIZE,
 							PCI_DMA_BIDIRECTIONAL);
 #else
-	ih->ivr_wptr_wa.quad_part = dma_map_page(adapt->pf.pci_dev->dev,
+	ih->ivr_wptr_wa.quad_part = dma_map_page(
+							(struct device *)adapt->pf.pci_dev->dev,
 							(struct page *)list[1], 0,
 							PAGE_SIZE,
 							DMA_BIDIRECTIONAL);

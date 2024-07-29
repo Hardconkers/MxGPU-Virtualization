@@ -72,11 +72,15 @@ void *kcl_mem_map_page_list(unsigned long *pagelist, unsigned int count)
 unsigned long long kcl_map_page(struct pci_dev *pci_dev, unsigned long p)
 {
 #if(LINUX_VERSION_CODE < KERNEL_VERSION(5,18,0))
-	return pci_map_page(pci_dev, (struct page *)p, 0,
-					PAGE_SIZE, PCI_DMA_BIDIRECTIONAL);
+	return pci_map_page(pci_dev,
+					(struct page *)p, 0,
+					PAGE_SIZE,
+					PCI_DMA_BIDIRECTIONAL);
 #else
-	return dma_map_page(&pci_dev->dev, (struct page *)p, 0,
-					PAGE_SIZE, DMA_BIDIRECTIONAL);
+	return dma_map_page(&pci_dev->dev,
+					(struct page *)p, 0,
+					PAGE_SIZE,
+					DMA_BIDIRECTIONAL);
 #endif
 }
 

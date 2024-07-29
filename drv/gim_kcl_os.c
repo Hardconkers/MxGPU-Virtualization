@@ -75,7 +75,7 @@ unsigned long long kcl_map_page(struct pci_dev *pci_dev, unsigned long p)
 	return pci_map_page(pci_dev, (struct page *)p, 0,
 					PAGE_SIZE, PCI_DMA_BIDIRECTIONAL);
 #else
-	return dma_map_page(pci_dev, (struct page *)p, 0,
+	return dma_map_page(&pci_dev->dev, (struct page *)p, 0,
 					PAGE_SIZE, DMA_BIDIRECTIONAL);
 #endif
 }

@@ -146,7 +146,7 @@ static int alloc_iv_ring(struct adapter *adapt)
 						PAGE_SIZE,
 						PCI_DMA_BIDIRECTIONAL);
 #else
-	ih->ivr_ma.quad_part = dma_map_page(adapt->pf.pci_dev,
+	ih->ivr_ma.quad_part = dma_map_page(adapt->pf.pci_dev->dev,
 						(struct page *)list[0], 0,
 						PAGE_SIZE,
 						DMA_BIDIRECTIONAL);
@@ -160,14 +160,14 @@ static int alloc_iv_ring(struct adapter *adapt)
 
 #if(LINUX_VERSION_CODE < KERNEL_VERSION(5,18,0))
 	ih->ivr_wptr_wa.quad_part = pci_map_page(adapt->pf.pci_dev,
-						    (struct page *)list[1], 0,
-						    PAGE_SIZE,
-						    PCI_DMA_BIDIRECTIONAL);
+							(struct page *)list[1], 0,
+							PAGE_SIZE,
+							PCI_DMA_BIDIRECTIONAL);
 #else
-	ih->ivr_wptr_wa.quad_part = dma_map_page(adapt->pf.pci_dev,
-						    (struct page *)list[1], 0,
-						    PAGE_SIZE,
-						    DMA_BIDIRECTIONAL);
+	ih->ivr_wptr_wa.quad_part = dma_map_page(adapt->pf.pci_dev->dev,
+							(struct page *)list[1], 0,
+							PAGE_SIZE,
+							DMA_BIDIRECTIONAL);
 #endif
 	gim_info("ih->ivr_wptr_wa.quad_part = 0x%llx\n",
 		ih->ivr_wptr_wa.quad_part);
